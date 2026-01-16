@@ -1,0 +1,1433 @@
+(venv) C:\Users\CP1234\EQUANS\Competentie Management - Documenten\XaurumStage\trainingv5\xaurum>start.bat
+🔌 DataStore SQL Engine gestart.
+🔌 Initialiseren SQL Staff Manager...
+✅ SQL Staff Connectie: SHRDSQLDEVVM01/Operations_support_portal/dbo.tblSTAFF
+✅ SQL Staff Manager gereed
+🔌 Initialiseren SQL Training Manager...
+✅ SQL Training Connectie: SHRDSQLDEVVM01/Operations_support_portal
+✅ SQL Training Manager gereed
+✅ SQL Training Manager gereed
+
+✅ SQL Mapping geladen: 45 regels uit TM_NaamMapping
+✅ Vertalingen actief: 45 termen.
+
+============================================================
+🚀 APP OPSTARTEN - STAP 1: Staff laden
+============================================================
+
+============================================================
+📊 STAP 1: STAFF LADEN (voor costcenter selectie)
+============================================================
+   → Bron: SQL Server
+✅ SQL: 455 actieve medewerkers opgehaald uit dbo.tblSTAFF
+   ✅ SQL: 455 medewerkers geladen
+   ✅ STAFF: 455 medewerkers geladen
+    ✅ 455 medewerkers geladen voor costcenter selectie
+
+============================================================
+🚀 APP OPSTARTEN - STAP 2: Costcenter selectie
+============================================================
+   🔍 SQL Lookup: Ophalen codes (staffCOSTCENTER315) en namen (staffORGUNIT)...
+   🏢 SQL: 50 afdelingen geladen.
+   ✅ Nieuwe keuze: 10O4W2 (10O4W2 - WC Buildings Wetteren Team 1)
+    ✅ Geselecteerd costcenter: 10O4W2
+
+============================================================
+🚀 APP OPSTARTEN - STAP 3: Data laden
+============================================================
+
+============================================================
+📊 DATA LADEN - Costcenter: 10O4W2
+============================================================
+✅ SQL Mapping geladen: 45 regels uit TM_NaamMapping
+✅ Vertalingen actief: 45 termen.
+
+📊 STAP 1: Staff laden...
+   → Bron: SQL Server (ophalen alle data voor lookup)
+✅ SQL: 455 actieve medewerkers opgehaald uit dbo.tblSTAFF
+   ✅ Kolom 'staffCOSTCENTER315' hernoemd naar 'CostCenter'.
+   ✅ STAFF: 455 actieve medewerkers geladen (Alle afdelingen)
+
+📜 STAP 2: Certificates laden (Excel)...
+   ✅ CertName_norm toegevoegd aan certificates
+   ✅ CERTIFICATES: 2287 rijen
+
+📋 STAP 3: Cert Results laden (Excel)...
+   ✅ CERT_RESULTS: 0 rijen
+
+📅 STAP 4: Training Req laden (Excel)...
+   ✅ TRAINING_REQ: 357 rijen
+
+🎯 STAP 5: Competences laden (Excel)...
+   ✅ COMPETENCES: 1089 rijen
+
+📚 STAP 6: Master Certificaten laden...
+âœ… SQL: 75 master certificaten
+   ✅ SQL: 75 master certificaten
+   ✅ Master Cert: 75 totaal, 43 strategisch
+
+🎯 STAP 7: Master Competenties laden...
+âœ… SQL: 126 master competenties
+   ✅ SQL: 126 master competenties
+   ✅ Master Comp: 126 totaal, 21 strategisch
+
+⚙️ STAP 8: Config Certificaten laden...
+âœ… SQL: 2358 certificaat config rijen
+   → Gefilterd: 2339 rijen (was 2358, -19)
+   ✅ Config Cert: 2339 rijen
+
+🎯 STAP 9: Config Competenties laden...
+âœ… get_medewerker_competentie_config (alle): 1109 rijen
+   → Gefilterd: 1101 rijen (was 1109, -8)
+   ✅ Config Comp: 1101 rijen
+   🧼 START Config Cleanup (SQL Wasstraat V2)...
+   ✅ SQL Config tabel is reeds volledig gestandaardiseerd.
+   🔄 Config Certificaten herladen na cleanup...
+âœ… SQL: 2358 certificaat config rijen
+
+📋 STAP 10: Todo Planner laden uit SQL...
+   🕵️ SQL: Ophalen taken voor specifiek CostCenter: 10O4W2
+   ✅ SQL: 16 taken opgehaald.
+   ✅ SQL: 16 taken geladen (exclusief voor 10O4W2)
+   ✅ TODO: 16 taken in geheugen.
+   🔧 Data Verrijking: Ontbrekende medewerker-info aanvullen...
+   ✅ Verrijking voltooid voor 16 taken.
+   🧹 STAFF FILTER: Teruggebracht naar 19 medewerkers van 10O4W2.
+
+📚 STAP 11: Training Catalog laden...
+âœ… SQL: 631 trainingen in catalogus
+   ✅ Training Catalog: 631 rijen
+
+🔍 STAP 12: Helper sets bouwen...
+   ✅ Zoeksets: 75 certs, 126 comps
+
+============================================================
+📝 STAP 13: TODO genereren voor costcenter 10O4W2...
+============================================================
+
+🔄 Sync certificaat taken...
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  105 rijen.
+   ✅ 32 nieuwe taken voor 10O4W2.
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (48 taken)...
+   ✅ SQL: Opslaan geslaagd voor 48 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+
+🔄 Merge todo met config...
+   ℹ️ merge_todo_with_config: 48 taken bijgewerkt (Nodig status synced).
+
+🔄 Sync competentie taken...
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 65 rijen met Nodig=Aan.
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (55 taken)...
+   ✅ SQL: Opslaan geslaagd voor 55 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 7
+   • Vernieuwingen nodig: 7
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 0
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 63
+   • TOTAAL NIEUWE TAKEN: 7
+============================================================
+
+✅ TODO sync voltooid
+
+🔄 Sync inschrijvingen uit Training_Req...
+
+============================================================
+🛡️ sync_inschrijvingen() - Filter: 10O4W2
+============================================================
+   🎯 Verwerken van 16 relevante inschrijvingen voor 10O4W2...
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (55 taken)...
+   ✅ SQL: Opslaan geslaagd voor 55 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+✅ Sync voltooid. 16 updates, 0 nieuwe taken voor afdeling 10O4W2.
+   ✅ 16 taken bijgewerkt met inschrijfdata
+
+🔄 Sync niet-geslaagde resultaten uit Cert_Results...
+   ℹ️ Geen niet-geslaagde taken nodig
+
+🔄 STAP 14: Status updates toepassen...
+
+============================================================
+🔄 close_finished_tasks() V15 - Filter: 10O4W2
+✅ close_finished_tasks: 0 taken bijgewerkt voor 10O4W2.
+   ✅ Geen wijzigingen nodig
+   ✅ Status updates voltooid
+
+🧹 STAP 14.5: Taken opschonen voor inactieve medewerkers...
+   🔍 SQL check op inactieve medewerkers...
+
+💾 STAP 15: Naam conversie en subset-save (met TaskID mapping)...
+✅ Alle namen zijn al in correct formaat
+   ✅ Alle namen zijn al in correct formaat
+   → 55 taken gewijzigd in deze sessie
+
+   💾 Opslaan subset: 55 gewijzigde taken naar SQL...
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (55 taken)...
+   ✅ SQL: Opslaan geslaagd voor 55 taken in 10O4W2.
+   ✅ Subset todo opgeslagen naar SQL Server
+
+🔍 STAP 16: Controleren op inschrijvingen zonder config...
+   ℹ️ INFO: 247 inschrijving(en) gevonden die nog niet in config staan.
+   ℹ️ De tool heeft deze zojuist in STAP 13 automatisch hersteld in de database.
+      • CV4106 → IS-005 - Zelfrijdende hoogwerker - Refresh
+      • BX6364 → EA-S-021 - Rolstelling en veiligheidsharnas
+      • LA1249 → IS-001 - Vorkheftruck - Refresh
+
+============================================================
+✅ load_all() VOLTOOID - Costcenter: 10O4W2
+============================================================
+   📊 Samenvatting:
+      • Staff: 19 medewerkers
+      • Certificates: 2287 rijen
+      • Todo: 55 taken
+============================================================
+
+
+============================================================
+🔧 DATA CLEANUP: Renormaliseren certificaatnamen
+============================================================
+   ℹ️ Data cleanup in-memory voltooid (SQL save uitgeschakeld)
+
+   🔄 sync_todo_with_config() V10 [SAFE PORT]
+      Config: 2339 | Todo: 55
+      ℹ️ Geen nieuwe taken nodig.
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  105 rijen.
+   ℹ️ merge_todo_with_config: 55 taken bijgewerkt (Nodig status synced).
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 65 rijen met Nodig=Aan.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 0
+   • Vernieuwingen nodig: 0
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 7
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 63
+   • TOTAAL NIEUWE TAKEN: 0
+============================================================
+   ✅ enrich_todo_with_staff_info: todo verrijkt (CostCenter ongewijzigd gelaten)
+   ℹ️ Todo sync voltooid (alle cost centers aanwezig, geen save nodig)
+
+============================================================
+🚀 APP OPSTARTEN - STAP 4: UI verversen
+============================================================
+
+======================================================================
+🔍 LOAD CERTIFICATES FOR: BHH106
+======================================================================
+📊 Sectie 1 - Behaalde Certificaten: 1 gevonden
+  ➕ ADD: VCA VOL → vcavol
+
+📊 Sectie 4 - Config Items: 1 gevonden
+  ⏭️  SKIP (duplicate): VCA VOL → vcavol
+
+📊 TOTAAL: 5 certificaten/vaardigheden (uniek: 5)
+======================================================================
+
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 169 taken opgehaald.
+
+============================================================
+🎉 APP OPSTARTEN VOLTOOID
+============================================================
+
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 169 taken opgehaald.
+
+(venv) C:\Users\CP1234\EQUANS\Competentie Management - Documenten\XaurumStage\trainingv5\xaurum>start.bat
+🔌 DataStore SQL Engine gestart.
+🔌 Initialiseren SQL Staff Manager...
+✅ SQL Staff Connectie: SHRDSQLDEVVM01/Operations_support_portal/dbo.tblSTAFF
+✅ SQL Staff Manager gereed
+🔌 Initialiseren SQL Training Manager...
+✅ SQL Training Connectie: SHRDSQLDEVVM01/Operations_support_portal
+✅ SQL Training Manager gereed
+✅ SQL Training Manager gereed
+
+✅ SQL Mapping geladen: 45 regels uit TM_NaamMapping
+✅ Vertalingen actief: 45 termen.
+
+============================================================
+🚀 APP OPSTARTEN - STAP 1: Staff laden
+============================================================
+
+============================================================
+📊 STAP 1: STAFF LADEN (voor costcenter selectie)
+============================================================
+   → Bron: SQL Server
+✅ SQL: 455 actieve medewerkers opgehaald uit dbo.tblSTAFF
+   ✅ SQL: 455 medewerkers geladen
+   ✅ STAFF: 455 medewerkers geladen
+    ✅ 455 medewerkers geladen voor costcenter selectie
+
+============================================================
+🚀 APP OPSTARTEN - STAP 2: Costcenter selectie
+============================================================
+   🔍 SQL Lookup: Ophalen codes (staffCOSTCENTER315) en namen (staffORGUNIT)...
+   🏢 SQL: 50 afdelingen geladen.
+   ✅ Nieuwe keuze: 10O4W2 (10O4W2 - WC Buildings Wetteren Team 1)
+    ✅ Geselecteerd costcenter: 10O4W2
+
+============================================================
+🚀 APP OPSTARTEN - STAP 3: Data laden
+============================================================
+
+============================================================
+📊 DATA LADEN - Costcenter: 10O4W2
+============================================================
+✅ SQL Mapping geladen: 45 regels uit TM_NaamMapping
+✅ Vertalingen actief: 45 termen.
+
+📊 STAP 1: Staff laden...
+   → Bron: SQL Server (ophalen alle data voor lookup)
+✅ SQL: 455 actieve medewerkers opgehaald uit dbo.tblSTAFF
+   ✅ Kolom 'staffCOSTCENTER315' hernoemd naar 'CostCenter'.
+   ✅ STAFF: 455 actieve medewerkers geladen (Alle afdelingen)
+
+📜 STAP 2: Certificates laden (Excel)...
+   ✅ CertName_norm toegevoegd aan certificates
+   ✅ CERTIFICATES: 2287 rijen
+
+📋 STAP 3: Cert Results laden (Excel)...
+   ✅ CERT_RESULTS: 0 rijen
+
+📅 STAP 4: Training Req laden (Excel)...
+   ✅ TRAINING_REQ: 357 rijen
+
+🎯 STAP 5: Competences laden (Excel)...
+   ✅ COMPETENCES: 1089 rijen
+
+📚 STAP 6: Master Certificaten laden...
+âœ… SQL: 75 master certificaten
+   ✅ SQL: 75 master certificaten
+   ✅ Master Cert: 75 totaal, 43 strategisch
+
+🎯 STAP 7: Master Competenties laden...
+âœ… SQL: 126 master competenties
+   ✅ SQL: 126 master competenties
+   ✅ Master Comp: 126 totaal, 21 strategisch
+
+⚙️ STAP 8: Config Certificaten laden...
+âœ… SQL: 2358 certificaat config rijen
+   → Gefilterd: 2339 rijen (was 2358, -19)
+   ✅ Config Cert: 2339 rijen
+
+🎯 STAP 9: Config Competenties laden...
+âœ… get_medewerker_competentie_config (alle): 1109 rijen
+   → Gefilterd: 1101 rijen (was 1109, -8)
+   ✅ Config Comp: 1101 rijen
+   🧼 START Config Cleanup (SQL Wasstraat V2)...
+   ✅ SQL Config tabel is reeds volledig gestandaardiseerd.
+   🔄 Config Certificaten herladen na cleanup...
+âœ… SQL: 2358 certificaat config rijen
+
+📋 STAP 10: Todo Planner laden uit SQL...
+   🕵️ SQL: Ophalen taken voor specifiek CostCenter: 10O4W2
+   ✅ SQL: 55 taken opgehaald.
+   ✅ SQL: 55 taken geladen (exclusief voor 10O4W2)
+   ✅ TODO: 55 taken in geheugen.
+   🔧 Data Verrijking: Ontbrekende medewerker-info aanvullen...
+   ✅ Verrijking voltooid voor 55 taken.
+   🧹 STAFF FILTER: Teruggebracht naar 19 medewerkers van 10O4W2.
+
+📚 STAP 11: Training Catalog laden...
+âœ… SQL: 631 trainingen in catalogus
+   ✅ Training Catalog: 631 rijen
+
+🔍 STAP 12: Helper sets bouwen...
+   ✅ Zoeksets: 75 certs, 126 comps
+
+============================================================
+✅ STAP 13: TODO AL GEVULD (55 taken) - SKIP SYNC!
+============================================================
+
+🔄 Sync inschrijvingen uit Training_Req...
+
+============================================================
+🛡️ sync_inschrijvingen() - Filter: 10O4W2
+============================================================
+   🎯 Verwerken van 16 relevante inschrijvingen voor 10O4W2...
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (55 taken)...
+   ✅ SQL: Opslaan geslaagd voor 55 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+✅ Sync voltooid. 16 updates, 0 nieuwe taken voor afdeling 10O4W2.
+   ✅ 16 taken bijgewerkt met inschrijfdata
+
+🔄 Sync niet-geslaagde resultaten uit Cert_Results...
+   ℹ️ Geen niet-geslaagde taken nodig
+
+🔄 STAP 14: Status updates toepassen...
+
+============================================================
+🔄 close_finished_tasks() V15 - Filter: 10O4W2
+✅ close_finished_tasks: 0 taken bijgewerkt voor 10O4W2.
+   ✅ Geen wijzigingen nodig
+   ✅ Status updates voltooid
+
+🧹 STAP 14.5: Taken opschonen voor inactieve medewerkers...
+   🔍 SQL check op inactieve medewerkers...
+
+💾 STAP 15: Naam conversie en subset-save (met TaskID mapping)...
+✅ Alle namen zijn al in correct formaat
+   ✅ Alle namen zijn al in correct formaat
+   → 16 taken gewijzigd in deze sessie
+
+   💾 Opslaan subset: 16 gewijzigde taken naar SQL...
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (16 taken)...
+   ✅ SQL: Opslaan geslaagd voor 16 taken in 10O4W2.
+   ✅ Subset todo opgeslagen naar SQL Server
+
+🔍 STAP 16: Controleren op inschrijvingen zonder config...
+   ℹ️ INFO: 247 inschrijving(en) gevonden die nog niet in config staan.
+   ℹ️ De tool heeft deze zojuist in STAP 13 automatisch hersteld in de database.
+      • CV4106 → IS-005 - Zelfrijdende hoogwerker - Refresh
+      • BX6364 → EA-S-021 - Rolstelling en veiligheidsharnas
+      • LA1249 → IS-001 - Vorkheftruck - Refresh
+
+============================================================
+✅ load_all() VOLTOOID - Costcenter: 10O4W2
+============================================================
+   📊 Samenvatting:
+      • Staff: 19 medewerkers
+      • Certificates: 2287 rijen
+      • Todo: 55 taken
+============================================================
+
+
+============================================================
+🔧 DATA CLEANUP: Renormaliseren certificaatnamen
+============================================================
+   ℹ️ Data cleanup in-memory voltooid (SQL save uitgeschakeld)
+
+   🔄 sync_todo_with_config() V10 [SAFE PORT]
+      Config: 2339 | Todo: 55
+      ℹ️ Geen nieuwe taken nodig.
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  105 rijen.
+   ℹ️ merge_todo_with_config: 55 taken bijgewerkt (Nodig status synced).
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 65 rijen met Nodig=Aan.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 0
+   • Vernieuwingen nodig: 0
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 7
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 63
+   • TOTAAL NIEUWE TAKEN: 0
+============================================================
+   ✅ enrich_todo_with_staff_info: todo verrijkt (CostCenter ongewijzigd gelaten)
+   ℹ️ Todo sync voltooid (alle cost centers aanwezig, geen save nodig)
+
+============================================================
+🚀 APP OPSTARTEN - STAP 4: UI verversen
+============================================================
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 130 taken opgehaald.
+
+============================================================
+🎉 APP OPSTARTEN VOLTOOID
+============================================================
+
+
+======================================================================
+🔍 LOAD CERTIFICATES FOR: CP1234
+======================================================================
+📊 Sectie 1 - Behaalde Certificaten: 1 gevonden
+  ➕ ADD: Werfsignalisatie Leidinggevenden_Cat.2-6 → werfsignalisatieleidinggevendencat26
+
+📊 Sectie 4 - Config Items: 1 gevonden
+  ⏭️  SKIP (duplicate): Werfsignalisatie Leidinggevenden_Cat.2-6 → werfsignalisatieleidinggevendencat26
+
+📊 TOTAAL: 3 certificaten/vaardigheden (uniek: 3)
+======================================================================
+
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 130 taken opgehaald.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 130 taken opgehaald.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 130 taken opgehaald.
+
+======================================================================
+🔍 LOAD CERTIFICATES FOR: ZA1222
+======================================================================
+📊 Sectie 1 - Behaalde Certificaten: 12 gevonden
+  ➕ ADD: EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ➕ ADD: AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ➕ ADD: EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ➕ ADD: VCA VOL → vcavol
+  ➕ ADD: IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ➕ ADD: EA-E-297 - BA5 Schakelen LS → eae297ba5schakelenlaagspanning
+  ➕ ADD: IS-001 - Vorkheftruck → is001vorkheftruck
+  ➕ ADD: IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ➕ ADD: EA-E-292 - BA5 Safety → eae292ba5safety
+  ➕ ADD: IS-003 - Starre verreiker → is003starreverreiker
+  ➕ ADD: EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ➕ ADD: EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+
+📊 Sectie 4 - Config Items: 14 gevonden
+  ⏭️  SKIP (duplicate): VCA VOL → vcavol
+  ⏭️  SKIP (duplicate): IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ⏭️  SKIP (duplicate): IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ⏭️  SKIP (duplicate): IS-003 - Starre verreiker → is003starreverreiker
+  ⏭️  SKIP (duplicate): IS-001 - Vorkheftruck → is001vorkheftruck
+  ⏭️  SKIP (duplicate): EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ⏭️  SKIP (duplicate): EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+  ⏭️  SKIP (duplicate): EA-E-297 - BA5 Schakelen Laagspanning → eae297ba5schakelenlaagspanning
+  ⏭️  SKIP (duplicate): EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ⏭️  SKIP (duplicate): EA-E-292 - BA5 Safety → eae292ba5safety
+  ⏭️  SKIP (duplicate): AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ⏭️  SKIP (duplicate): EA-S-021 – Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ⏭️  SKIP (duplicate): EA-E-295 - BA5 Schakelen Hoogspanning → eae295ba5schakelenhoogspanning
+  ⏭️  SKIP (duplicate): EA-E-294 - BA5 Hoogspanning → eae294ba5hoogspanning
+
+📊 TOTAAL: 19 certificaten/vaardigheden (uniek: 19)
+======================================================================
+
+💾 Opslaan gestart voor ZA1222...
+   📊 Opslaan 14 certificaten...
+
+ðŸ’¾ save_medewerker_certificaat_config: 14 rijen opslaan...
+   âœï¸ UPDATE: AV-012 - Blussen met kleine blusmiddelen voor ZA1222
+   âœï¸ UPDATE: EA-E-292 - BA5 Safety voor ZA1222
+   âœï¸ UPDATE: EA-E-293 - BA5 Laagspanning voor ZA1222
+   âœï¸ UPDATE: EA-E-294 - BA5 Hoogspanning voor ZA1222
+   âœï¸ UPDATE: EA-S-011 - Hulpverlener - Basis voor ZA1222
+   âœï¸ UPDATE: EA-S-012 - Hulpverlener - Refresh voor ZA1222
+   âž• INSERT: EA-S-021 - Rolstelling + veiligheidsharnas voor ZA1222
+   âœï¸ UPDATE: IS-001 - Vorkheftruck voor ZA1222
+   âœï¸ UPDATE: IS-003 - Starre verreiker voor ZA1222
+   âœï¸ UPDATE: IS-005 - Zelfrijdende hoogwerker voor ZA1222
+   âœï¸ UPDATE: IS-006 - Aanslaan en uitwijzen kritieke lasten voor ZA1222
+   âœï¸ UPDATE: VCA VOL voor ZA1222
+   âœï¸ UPDATE: EA-E-295 - BA5 Schakelen Hoogspanning voor ZA1222
+   âœï¸ UPDATE: EA-E-297 - BA5 Schakelen Laagspanning voor ZA1222
+
+âœ… save_medewerker_certificaat_config: 14 OK, 0 fouten
+   📊 Opslaan 6 vaardigheden...
+
+💾 save_medewerker_competentie_config: 6 rijen verwerken...
+✅ Competenties succesvol gesynchroniseerd met SQL database.
+✅ Config succesvol opgeslagen naar SQL
+🔄 Start planner sync...
+âœ… SQL: 2359 certificaat config rijen
+âœ… get_medewerker_competentie_config (alle): 1110 rijen
+   -> Config DF's in DataStore herladen vanuit SQL.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 130 taken opgehaald.
+   -> Todo herladen: 130 taken
+   -> 'Nodig' vlag in Todo DF bijgewerkt naar verse Config.
+   -> Taken in geheugen gemarkeerd als Afgewerkt.
+   -> 8 onnodige/verouderde taken (Nodig=False uit Config) VERWIJDERD uit geheugen.
+
+========================================
+💾 save_todo() Aangeroepen vanuit UI
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   🚫 POLITIE: 114 taken van ANDERE afdelingen tegengehouden!
+   ✅ POLITIE: 8 taken van 10O4W2 goedgekeurd voor opslag.
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (8 taken)...
+   ✅ SQL: Opslaan geslaagd voor 8 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+   -> Schone takenlijst (zonder Nodig=False) opgeslagen naar SQL.
+
+   🔄 sync_todo_with_config() V10 [SAFE PORT]
+      Config: 2359 | Todo: 122
+      ✅ 32 nieuwe taken toegevoegd.
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  106 rijen.
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 66 rijen met Nodig=Aan.
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   🚫 POLITIE: 114 taken van ANDERE afdelingen tegengehouden!
+   ✅ POLITIE: 48 taken van 10O4W2 goedgekeurd voor opslag.
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (48 taken)...
+   ✅ SQL: Opslaan geslaagd voor 48 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 8
+   • Vernieuwingen nodig: 7
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 0
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 64
+   • TOTAAL NIEUWE TAKEN: 8
+============================================================
+
+============================================================
+🔄 close_finished_tasks() V15 - Filter: 10O4W2
+✅ close_finished_tasks: 0 taken bijgewerkt voor 10O4W2.
+   ✅ enrich_todo_with_staff_info: todo verrijkt (CostCenter ongewijzigd gelaten)
+
+========================================
+💾 save_todo() Aangeroepen vanuit UI
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   🚫 POLITIE: 114 taken van ANDERE afdelingen tegengehouden!
+   ✅ POLITIE: 48 taken van 10O4W2 goedgekeurd voor opslag.
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (48 taken)...
+   ✅ SQL: Opslaan geslaagd voor 48 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+   -> Sync resultaten opgeslagen naar SQL
+
+======================================================================
+🔍 LOAD CERTIFICATES FOR: ZA1222
+======================================================================
+📊 Sectie 1 - Behaalde Certificaten: 12 gevonden
+  ➕ ADD: EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ➕ ADD: AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ➕ ADD: EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ➕ ADD: VCA VOL → vcavol
+  ➕ ADD: IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ➕ ADD: EA-E-297 - BA5 Schakelen LS → eae297ba5schakelenlaagspanning
+  ➕ ADD: IS-001 - Vorkheftruck → is001vorkheftruck
+  ➕ ADD: IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ➕ ADD: EA-E-292 - BA5 Safety → eae292ba5safety
+  ➕ ADD: IS-003 - Starre verreiker → is003starreverreiker
+  ➕ ADD: EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ➕ ADD: EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+
+📊 Sectie 4 - Config Items: 15 gevonden
+  ⏭️  SKIP (duplicate): AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ⏭️  SKIP (duplicate): EA-E-292 - BA5 Safety → eae292ba5safety
+  ⏭️  SKIP (duplicate): EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ⏭️  SKIP (duplicate): EA-E-294 - BA5 Hoogspanning → eae294ba5hoogspanning
+  ⏭️  SKIP (duplicate): EA-E-295 - BA5 Schakelen Hoogspanning → eae295ba5schakelenhoogspanning
+  ⏭️  SKIP (duplicate): EA-E-297 - BA5 Schakelen Laagspanning → eae297ba5schakelenlaagspanning
+  ⏭️  SKIP (duplicate): EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+  ⏭️  SKIP (duplicate): EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ⏭️  SKIP (duplicate): EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ⏭️  SKIP (duplicate): EA-S-021 – Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ⏭️  SKIP (duplicate): IS-001 - Vorkheftruck → is001vorkheftruck
+  ⏭️  SKIP (duplicate): IS-003 - Starre verreiker → is003starreverreiker
+  ⏭️  SKIP (duplicate): IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ⏭️  SKIP (duplicate): IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ⏭️  SKIP (duplicate): VCA VOL → vcavol
+
+📊 TOTAAL: 19 certificaten/vaardigheden (uniek: 19)
+======================================================================
+
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+💾 Opslaan gestart voor ZA1222...
+   📊 Opslaan 14 certificaten...
+
+ðŸ’¾ save_medewerker_certificaat_config: 14 rijen opslaan...
+   âœï¸ UPDATE: AV-012 - Blussen met kleine blusmiddelen voor ZA1222
+   âœï¸ UPDATE: EA-E-292 - BA5 Safety voor ZA1222
+   âœï¸ UPDATE: EA-E-293 - BA5 Laagspanning voor ZA1222
+   âœï¸ UPDATE: EA-E-294 - BA5 Hoogspanning voor ZA1222
+   âœï¸ UPDATE: EA-S-011 - Hulpverlener - Basis voor ZA1222
+   âœï¸ UPDATE: EA-S-012 - Hulpverlener - Refresh voor ZA1222
+   âœï¸ UPDATE: EA-S-021 - Rolstelling + veiligheidsharnas voor ZA1222
+   âœï¸ UPDATE: IS-001 - Vorkheftruck voor ZA1222
+   âœï¸ UPDATE: IS-003 - Starre verreiker voor ZA1222
+   âœï¸ UPDATE: IS-005 - Zelfrijdende hoogwerker voor ZA1222
+   âœï¸ UPDATE: IS-006 - Aanslaan en uitwijzen kritieke lasten voor ZA1222
+   âœï¸ UPDATE: VCA VOL voor ZA1222
+   âœï¸ UPDATE: EA-E-295 - BA5 Schakelen Hoogspanning voor ZA1222
+   âœï¸ UPDATE: EA-E-297 - BA5 Schakelen Laagspanning voor ZA1222
+
+âœ… save_medewerker_certificaat_config: 14 OK, 0 fouten
+   📊 Opslaan 6 vaardigheden...
+
+💾 save_medewerker_competentie_config: 6 rijen verwerken...
+✅ Competenties succesvol gesynchroniseerd met SQL database.
+✅ Config succesvol opgeslagen naar SQL
+🔄 Start planner sync...
+âœ… SQL: 2359 certificaat config rijen
+âœ… get_medewerker_competentie_config (alle): 1110 rijen
+   -> Config DF's in DataStore herladen vanuit SQL.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+   -> Todo herladen: 162 taken
+   -> 'Nodig' vlag in Todo DF bijgewerkt naar verse Config.
+   -> Taken in geheugen gemarkeerd als Afgewerkt.
+   -> Geen onnodige taken om te verwijderen.
+
+========================================
+💾 save_todo() Aangeroepen vanuit UI
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   🚫 POLITIE: 114 taken van ANDERE afdelingen tegengehouden!
+   ✅ POLITIE: 48 taken van 10O4W2 goedgekeurd voor opslag.
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (48 taken)...
+   ✅ SQL: Opslaan geslaagd voor 48 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+   -> Schone takenlijst (zonder Nodig=False) opgeslagen naar SQL.
+
+   🔄 sync_todo_with_config() V10 [SAFE PORT]
+      Config: 2359 | Todo: 162
+      ℹ️ Geen nieuwe taken nodig.
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  106 rijen.
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 66 rijen met Nodig=Aan.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 0
+   • Vernieuwingen nodig: 0
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 8
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 64
+   • TOTAAL NIEUWE TAKEN: 0
+============================================================
+
+============================================================
+🔄 close_finished_tasks() V15 - Filter: 10O4W2
+✅ close_finished_tasks: 0 taken bijgewerkt voor 10O4W2.
+   ✅ enrich_todo_with_staff_info: todo verrijkt (CostCenter ongewijzigd gelaten)
+
+========================================
+💾 save_todo() Aangeroepen vanuit UI
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   🚫 POLITIE: 114 taken van ANDERE afdelingen tegengehouden!
+   ✅ POLITIE: 48 taken van 10O4W2 goedgekeurd voor opslag.
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (48 taken)...
+   ✅ SQL: Opslaan geslaagd voor 48 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+   -> Sync resultaten opgeslagen naar SQL
+
+======================================================================
+🔍 LOAD CERTIFICATES FOR: ZA1222
+======================================================================
+📊 Sectie 1 - Behaalde Certificaten: 12 gevonden
+  ➕ ADD: EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ➕ ADD: AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ➕ ADD: EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ➕ ADD: VCA VOL → vcavol
+  ➕ ADD: IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ➕ ADD: EA-E-297 - BA5 Schakelen LS → eae297ba5schakelenlaagspanning
+  ➕ ADD: IS-001 - Vorkheftruck → is001vorkheftruck
+  ➕ ADD: IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ➕ ADD: EA-E-292 - BA5 Safety → eae292ba5safety
+  ➕ ADD: IS-003 - Starre verreiker → is003starreverreiker
+  ➕ ADD: EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ➕ ADD: EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+
+📊 Sectie 4 - Config Items: 15 gevonden
+  ⏭️  SKIP (duplicate): AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ⏭️  SKIP (duplicate): EA-E-292 - BA5 Safety → eae292ba5safety
+  ⏭️  SKIP (duplicate): EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ⏭️  SKIP (duplicate): EA-E-294 - BA5 Hoogspanning → eae294ba5hoogspanning
+  ⏭️  SKIP (duplicate): EA-E-295 - BA5 Schakelen Hoogspanning → eae295ba5schakelenhoogspanning
+  ⏭️  SKIP (duplicate): EA-E-297 - BA5 Schakelen Laagspanning → eae297ba5schakelenlaagspanning
+  ⏭️  SKIP (duplicate): EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+  ⏭️  SKIP (duplicate): EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ⏭️  SKIP (duplicate): EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ⏭️  SKIP (duplicate): EA-S-021 – Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ⏭️  SKIP (duplicate): IS-001 - Vorkheftruck → is001vorkheftruck
+  ⏭️  SKIP (duplicate): IS-003 - Starre verreiker → is003starreverreiker
+  ⏭️  SKIP (duplicate): IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ⏭️  SKIP (duplicate): IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ⏭️  SKIP (duplicate): VCA VOL → vcavol
+
+📊 TOTAAL: 19 certificaten/vaardigheden (uniek: 19)
+======================================================================
+
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+
+(venv) C:\Users\CP1234\EQUANS\Competentie Management - Documenten\XaurumStage\trainingv5\xaurum>start.bat
+🔌 DataStore SQL Engine gestart.
+🔌 Initialiseren SQL Staff Manager...
+✅ SQL Staff Connectie: SHRDSQLDEVVM01/Operations_support_portal/dbo.tblSTAFF
+✅ SQL Staff Manager gereed
+🔌 Initialiseren SQL Training Manager...
+✅ SQL Training Connectie: SHRDSQLDEVVM01/Operations_support_portal
+✅ SQL Training Manager gereed
+✅ SQL Training Manager gereed
+
+✅ SQL Mapping geladen: 45 regels uit TM_NaamMapping
+✅ Vertalingen actief: 45 termen.
+
+============================================================
+🚀 APP OPSTARTEN - STAP 1: Staff laden
+============================================================
+
+============================================================
+📊 STAP 1: STAFF LADEN (voor costcenter selectie)
+============================================================
+   → Bron: SQL Server
+✅ SQL: 455 actieve medewerkers opgehaald uit dbo.tblSTAFF
+   ✅ SQL: 455 medewerkers geladen
+   ✅ STAFF: 455 medewerkers geladen
+    ✅ 455 medewerkers geladen voor costcenter selectie
+
+============================================================
+🚀 APP OPSTARTEN - STAP 2: Costcenter selectie
+============================================================
+   🔍 SQL Lookup: Ophalen codes (staffCOSTCENTER315) en namen (staffORGUNIT)...
+   🏢 SQL: 50 afdelingen geladen.
+   ✅ Nieuwe keuze: 10O4W2 (10O4W2 - WC Buildings Wetteren Team 1)
+    ✅ Geselecteerd costcenter: 10O4W2
+
+============================================================
+🚀 APP OPSTARTEN - STAP 3: Data laden
+============================================================
+
+============================================================
+📊 DATA LADEN - Costcenter: 10O4W2
+============================================================
+✅ SQL Mapping geladen: 45 regels uit TM_NaamMapping
+✅ Vertalingen actief: 45 termen.
+
+📊 STAP 1: Staff laden...
+   → Bron: SQL Server (ophalen alle data voor lookup)
+✅ SQL: 455 actieve medewerkers opgehaald uit dbo.tblSTAFF
+   ✅ Kolom 'staffCOSTCENTER315' hernoemd naar 'CostCenter'.
+   ✅ STAFF: 455 actieve medewerkers geladen (Alle afdelingen)
+
+📜 STAP 2: Certificates laden (Excel)...
+   ✅ CertName_norm toegevoegd aan certificates
+   ✅ CERTIFICATES: 2287 rijen
+
+📋 STAP 3: Cert Results laden (Excel)...
+   ✅ CERT_RESULTS: 0 rijen
+
+📅 STAP 4: Training Req laden (Excel)...
+   ✅ TRAINING_REQ: 357 rijen
+
+🎯 STAP 5: Competences laden (Excel)...
+   ✅ COMPETENCES: 1089 rijen
+
+📚 STAP 6: Master Certificaten laden...
+âœ… SQL: 75 master certificaten
+   ✅ SQL: 75 master certificaten
+   ✅ Master Cert: 75 totaal, 43 strategisch
+
+🎯 STAP 7: Master Competenties laden...
+âœ… SQL: 126 master competenties
+   ✅ SQL: 126 master competenties
+   ✅ Master Comp: 126 totaal, 21 strategisch
+
+⚙️ STAP 8: Config Certificaten laden...
+âœ… SQL: 2359 certificaat config rijen
+   → Gefilterd: 2340 rijen (was 2359, -19)
+   ✅ Config Cert: 2340 rijen
+
+🎯 STAP 9: Config Competenties laden...
+âœ… get_medewerker_competentie_config (alle): 1110 rijen
+   → Gefilterd: 1102 rijen (was 1110, -8)
+   ✅ Config Comp: 1102 rijen
+   🧼 START Config Cleanup (SQL Wasstraat V2)...
+   ❌ Fout tijdens SQL Wasstraat: 'SQLServerTrainingManager' object has no attribute 'add_medewerker_certificaat_config'
+   🔄 Config Certificaten herladen na cleanup...
+âœ… SQL: 2359 certificaat config rijen
+
+📋 STAP 10: Todo Planner laden uit SQL...
+   🕵️ SQL: Ophalen taken voor specifiek CostCenter: 10O4W2
+   ✅ SQL: 48 taken opgehaald.
+   ✅ SQL: 48 taken geladen (exclusief voor 10O4W2)
+   ✅ TODO: 48 taken in geheugen.
+   🔧 Data Verrijking: Ontbrekende medewerker-info aanvullen...
+   ✅ Verrijking voltooid voor 48 taken.
+   🧹 STAFF FILTER: Teruggebracht naar 19 medewerkers van 10O4W2.
+
+📚 STAP 11: Training Catalog laden...
+âœ… SQL: 631 trainingen in catalogus
+   ✅ Training Catalog: 631 rijen
+
+🔍 STAP 12: Helper sets bouwen...
+   ✅ Zoeksets: 75 certs, 126 comps
+
+============================================================
+📝 STAP 13: TODO genereren voor costcenter 10O4W2...
+============================================================
+
+🔄 Sync certificaat taken...
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  106 rijen.
+
+🔄 Merge todo met config...
+   ℹ️ merge_todo_with_config: 48 taken bijgewerkt (Nodig status synced).
+
+🔄 Sync competentie taken...
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 66 rijen met Nodig=Aan.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 0
+   • Vernieuwingen nodig: 0
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 8
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 64
+   • TOTAAL NIEUWE TAKEN: 0
+============================================================
+
+✅ TODO sync voltooid
+
+🔄 Sync inschrijvingen uit Training_Req...
+
+============================================================
+🛡️ sync_inschrijvingen() - Filter: 10O4W2
+============================================================
+   🎯 Verwerken van 16 relevante inschrijvingen voor 10O4W2...
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (56 taken)...
+   ✅ SQL: Opslaan geslaagd voor 56 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+✅ Sync voltooid. 8 updates, 8 nieuwe taken voor afdeling 10O4W2.
+   ✅ 16 taken bijgewerkt met inschrijfdata
+
+🔄 Sync niet-geslaagde resultaten uit Cert_Results...
+   ℹ️ Geen niet-geslaagde taken nodig
+
+🔄 STAP 14: Status updates toepassen...
+
+============================================================
+🔄 close_finished_tasks() V15 - Filter: 10O4W2
+✅ close_finished_tasks: 0 taken bijgewerkt voor 10O4W2.
+   ✅ Geen wijzigingen nodig
+   ✅ Status updates voltooid
+
+🧹 STAP 14.5: Taken opschonen voor inactieve medewerkers...
+   🔍 SQL check op inactieve medewerkers...
+
+💾 STAP 15: Naam conversie en subset-save (met TaskID mapping)...
+✅ Alle namen zijn al in correct formaat
+   ✅ Alle namen zijn al in correct formaat
+   → 16 taken gewijzigd in deze sessie
+
+   💾 Opslaan subset: 16 gewijzigde taken naar SQL...
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (16 taken)...
+   ✅ SQL: Opslaan geslaagd voor 16 taken in 10O4W2.
+   ✅ Subset todo opgeslagen naar SQL Server
+
+🔍 STAP 16: Controleren op inschrijvingen zonder config...
+   ℹ️ INFO: 247 inschrijving(en) gevonden die nog niet in config staan.
+   ℹ️ De tool heeft deze zojuist in STAP 13 automatisch hersteld in de database.
+      • CV4106 → IS-005 - Zelfrijdende hoogwerker - Refresh
+      • BX6364 → EA-S-021 - Rolstelling en veiligheidsharnas
+      • LA1249 → IS-001 - Vorkheftruck - Refresh
+
+============================================================
+✅ load_all() VOLTOOID - Costcenter: 10O4W2
+============================================================
+   📊 Samenvatting:
+      • Staff: 19 medewerkers
+      • Certificates: 2287 rijen
+      • Todo: 56 taken
+============================================================
+
+
+============================================================
+🔧 DATA CLEANUP: Renormaliseren certificaatnamen
+============================================================
+   🧹 remove_duplicate_configs: verwijderd totaal 1 duplicaten
+   ℹ️ Data cleanup in-memory voltooid (SQL save uitgeschakeld)
+
+   🔄 sync_todo_with_config() V10 [SAFE PORT]
+      Config: 2339 | Todo: 56
+      ℹ️ Geen nieuwe taken nodig.
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  105 rijen.
+   ℹ️ merge_todo_with_config: 56 taken bijgewerkt (Nodig status synced).
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 66 rijen met Nodig=Aan.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 0
+   • Vernieuwingen nodig: 0
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 8
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 64
+   • TOTAAL NIEUWE TAKEN: 0
+============================================================
+   ✅ enrich_todo_with_staff_info: todo verrijkt (CostCenter ongewijzigd gelaten)
+   ℹ️ Todo sync voltooid (alle cost centers aanwezig, geen save nodig)
+
+============================================================
+🚀 APP OPSTARTEN - STAP 4: UI verversen
+============================================================
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 130 taken opgehaald.
+
+============================================================
+🎉 APP OPSTARTEN VOLTOOID
+============================================================
+
+
+======================================================================
+🔍 LOAD CERTIFICATES FOR: ZA1222
+======================================================================
+📊 Sectie 1 - Behaalde Certificaten: 12 gevonden
+  ➕ ADD: EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ➕ ADD: AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ➕ ADD: EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ➕ ADD: VCA VOL → vcavol
+  ➕ ADD: IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ➕ ADD: EA-E-297 - BA5 Schakelen LS → eae297ba5schakelenlaagspanning
+  ➕ ADD: IS-001 - Vorkheftruck → is001vorkheftruck
+  ➕ ADD: IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ➕ ADD: EA-E-292 - BA5 Safety → eae292ba5safety
+  ➕ ADD: IS-003 - Starre verreiker → is003starreverreiker
+  ➕ ADD: EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ➕ ADD: EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+
+📊 Sectie 4 - Config Items: 14 gevonden
+  ⏭️  SKIP (duplicate): AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ⏭️  SKIP (duplicate): EA-E-292 - BA5 Safety → eae292ba5safety
+  ⏭️  SKIP (duplicate): EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ⏭️  SKIP (duplicate): EA-E-294 - BA5 Hoogspanning → eae294ba5hoogspanning
+  ⏭️  SKIP (duplicate): EA-E-295 - BA5 Schakelen Hoogspanning → eae295ba5schakelenhoogspanning
+  ⏭️  SKIP (duplicate): EA-E-297 - BA5 Schakelen Laagspanning → eae297ba5schakelenlaagspanning
+  ⏭️  SKIP (duplicate): EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+  ⏭️  SKIP (duplicate): EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ⏭️  SKIP (duplicate): EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ⏭️  SKIP (duplicate): IS-001 - Vorkheftruck → is001vorkheftruck
+  ⏭️  SKIP (duplicate): IS-003 - Starre verreiker → is003starreverreiker
+  ⏭️  SKIP (duplicate): IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ⏭️  SKIP (duplicate): IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ⏭️  SKIP (duplicate): VCA VOL → vcavol
+
+📊 TOTAAL: 19 certificaten/vaardigheden (uniek: 19)
+======================================================================
+
+
+============================================================
+💾 on_save() - Opslaan gestart voor ZA1222
+============================================================
+   👤 Medewerker:  Maes Stefan (ZA1222)
+   🏢 CostCenter: 10O4W2
+   📋 Widgets te verwerken: 20
+   🎯 Vaardigheid: EA-S-026 - Plaatsen van ankerpunten (Nodig=True)
+   📜 Certificaat:  AV-012 - Blussen met kleine blusmiddelen (Nodig=True)
+   🎯 Vaardigheid: CHEF OP DE WERKVLOER (Nodig=True)
+   🎯 Vaardigheid: EA-E-091 - Opleiding door Nussbaumer op het materiaal en de gereedschappen Klauke (Nodig=True)
+   🎯 Vaardigheid: EA-E-180 - AREI Huishoudelijk (Nodig=True)
+   📜 Certificaat:  EA-E-292 - BA5 Safety (Nodig=True)
+   📜 Certificaat:  EA-E-293 - BA5 Laagspanning (Nodig=True)
+   📜 Certificaat:  EA-E-294 - BA5 Hoogspanning (Nodig=True)
+   📜 Certificaat:  EA-S-011 - Hulpverlener - Basis (Nodig=True)
+   📜 Certificaat:  EA-S-012 - Hulpverlener - Refresh (Nodig=True)
+   🎯 Vaardigheid: EA-S-014 - Ergonomie: Manueel hanteren van lasten (Nodig=True)
+   📜 Certificaat:  EA-S-021 - Rolstelling + veiligheidsharnas (Nodig=True)
+   📜 Certificaat:  IS-001 - Vorkheftruck (Nodig=True)
+   📜 Certificaat:  IS-003 - Starre verreiker (Nodig=True)
+   📜 Certificaat:  IS-005 - Zelfrijdende hoogwerker (Nodig=True)
+   📜 Certificaat:  IS-006 - Aanslaan en uitwijzen kritieke lasten (Nodig=True)
+   🎯 Vaardigheid: Safety Day (Nodig=True)
+   📜 Certificaat:  VCA VOL (Nodig=True)
+   📜 Certificaat:  EA-E-295 - BA5 Schakelen Hoogspanning (Nodig=True)
+   📜 Certificaat:  EA-E-297 - BA5 Schakelen Laagspanning (Nodig=True)
+
+   📊 Totaal: 14 certificaten, 6 vaardigheden
+
+   💾 Opslaan 14 certificaten naar SQL...
+   💾 Opslaan 14 certificaat config rijen naar SQL...
+   ❌ Fout bij opslaan certificaat config: 'DataStore' object has no attribute 'sql_engine'
+
+   💾 Opslaan 6 vaardigheden naar SQL...
+   💾 Opslaan 6 competentie config rijen naar SQL...
+   ❌ Fout bij opslaan competentie config: 'DataStore' object has no attribute 'sql_engine'
+
+⚠️ Config opslaan had problemen - check logs
+
+🔄 Planner sync starten...
+🔄 Start planner sync...
+âœ… SQL: 2359 certificaat config rijen
+âœ… get_medewerker_competentie_config (alle): 1110 rijen
+   -> Config DF's in DataStore herladen vanuit SQL.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 130 taken opgehaald.
+   -> Todo herladen: 130 taken
+   -> 'Nodig' vlag in Todo DF bijgewerkt naar verse Config.
+   -> Taken in geheugen gemarkeerd als Afgewerkt.
+   -> 8 onnodige/verouderde taken (Nodig=False uit Config) VERWIJDERD uit geheugen.
+
+========================================
+💾 save_todo() Aangeroepen vanuit UI
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   🚫 POLITIE: 114 taken van ANDERE afdelingen tegengehouden!
+   ✅ POLITIE: 8 taken van 10O4W2 goedgekeurd voor opslag.
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (8 taken)...
+   ✅ SQL: Opslaan geslaagd voor 8 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+   -> Schone takenlijst (zonder Nodig=False) opgeslagen naar SQL.
+
+   🔄 sync_todo_with_config() V10 [SAFE PORT]
+      Config: 2359 | Todo: 122
+      ✅ 32 nieuwe taken toegevoegd.
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  106 rijen.
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 66 rijen met Nodig=Aan.
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   🚫 POLITIE: 114 taken van ANDERE afdelingen tegengehouden!
+   ✅ POLITIE: 48 taken van 10O4W2 goedgekeurd voor opslag.
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (48 taken)...
+   ✅ SQL: Opslaan geslaagd voor 48 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 8
+   • Vernieuwingen nodig: 7
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 0
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 64
+   • TOTAAL NIEUWE TAKEN: 8
+============================================================
+
+============================================================
+🔄 close_finished_tasks() V15 - Filter: 10O4W2
+✅ close_finished_tasks: 0 taken bijgewerkt voor 10O4W2.
+   ✅ enrich_todo_with_staff_info: todo verrijkt (CostCenter ongewijzigd gelaten)
+
+========================================
+💾 save_todo() Aangeroepen vanuit UI
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   🚫 POLITIE: 114 taken van ANDERE afdelingen tegengehouden!
+   ✅ POLITIE: 48 taken van 10O4W2 goedgekeurd voor opslag.
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (48 taken)...
+   ✅ SQL: Opslaan geslaagd voor 48 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+   -> Sync resultaten opgeslagen naar SQL
+
+======================================================================
+🔍 LOAD CERTIFICATES FOR: ZA1222
+======================================================================
+📊 Sectie 1 - Behaalde Certificaten: 12 gevonden
+  ➕ ADD: EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ➕ ADD: AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ➕ ADD: EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ➕ ADD: VCA VOL → vcavol
+  ➕ ADD: IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ➕ ADD: EA-E-297 - BA5 Schakelen LS → eae297ba5schakelenlaagspanning
+  ➕ ADD: IS-001 - Vorkheftruck → is001vorkheftruck
+  ➕ ADD: IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ➕ ADD: EA-E-292 - BA5 Safety → eae292ba5safety
+  ➕ ADD: IS-003 - Starre verreiker → is003starreverreiker
+  ➕ ADD: EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ➕ ADD: EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+
+📊 Sectie 4 - Config Items: 15 gevonden
+  ⏭️  SKIP (duplicate): AV-012 - Blussen met kleine blusmiddelen → av012blussenmetkleineblusmiddelen
+  ⏭️  SKIP (duplicate): EA-E-292 - BA5 Safety → eae292ba5safety
+  ⏭️  SKIP (duplicate): EA-E-293 - BA5 Laagspanning → eae293ba5laagspanning
+  ⏭️  SKIP (duplicate): EA-E-294 - BA5 Hoogspanning → eae294ba5hoogspanning
+  ⏭️  SKIP (duplicate): EA-E-295 - BA5 Schakelen Hoogspanning → eae295ba5schakelenhoogspanning
+  ⏭️  SKIP (duplicate): EA-E-297 - BA5 Schakelen Laagspanning → eae297ba5schakelenlaagspanning
+  ⏭️  SKIP (duplicate): EA-S-011 - Hulpverlener - Basis → eas011hulpverlenerbasis
+  ⏭️  SKIP (duplicate): EA-S-012 - Hulpverlener - Refresh → eas012hulpverlenerrefresh
+  ⏭️  SKIP (duplicate): EA-S-021 - Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ⏭️  SKIP (duplicate): EA-S-021 – Rolstelling + veiligheidsharnas → eas021rolstellingveiligheidsharnas
+  ⏭️  SKIP (duplicate): IS-001 - Vorkheftruck → is001vorkheftruck
+  ⏭️  SKIP (duplicate): IS-003 - Starre verreiker → is003starreverreiker
+  ⏭️  SKIP (duplicate): IS-005 - Zelfrijdende hoogwerker → is005zelfrijdendehoogwerker
+  ⏭️  SKIP (duplicate): IS-006 - Aanslaan en uitwijzen kritieke lasten → is006aanslaanenuitwijzenkritiekelasten
+  ⏭️  SKIP (duplicate): VCA VOL → vcavol
+
+📊 TOTAAL: 19 certificaten/vaardigheden (uniek: 19)
+======================================================================
+
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+
+============================================================
+✅ on_save() VOLTOOID
+============================================================
+
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 162 taken opgehaald.
+
+============================================================
+📊 XAURUM BESTANDSSTATUS
+============================================================
+    ✅ Certificates         | 12-01-2026 14:51 | (3d 23u oud)
+    ✅ Cert Results         | 12-01-2026 14:51 | (3d 23u oud)
+    ✅ Training Req         | 12-01-2026 14:51 | (3d 23u oud)
+    ✅ Competences          | 12-01-2026 14:51 | (3d 23u oud)
+============================================================
+
+
+============================================================
+📊 DATA LADEN - Costcenter: 10O4W2
+============================================================
+✅ SQL Mapping geladen: 45 regels uit TM_NaamMapping
+✅ Vertalingen actief: 45 termen.
+
+📊 STAP 1: Staff laden...
+   → Bron: SQL Server (ophalen alle data voor lookup)
+✅ SQL: 455 actieve medewerkers opgehaald uit dbo.tblSTAFF
+   ✅ Kolom 'staffCOSTCENTER315' hernoemd naar 'CostCenter'.
+   ✅ STAFF: 455 actieve medewerkers geladen (Alle afdelingen)
+
+📜 STAP 2: Certificates laden (Excel)...
+   ✅ CertName_norm toegevoegd aan certificates
+   ✅ CERTIFICATES: 2287 rijen
+
+📋 STAP 3: Cert Results laden (Excel)...
+   ✅ CERT_RESULTS: 0 rijen
+
+📅 STAP 4: Training Req laden (Excel)...
+   ✅ TRAINING_REQ: 357 rijen
+
+🎯 STAP 5: Competences laden (Excel)...
+   ✅ COMPETENCES: 1089 rijen
+
+📚 STAP 6: Master Certificaten laden...
+âœ… SQL: 75 master certificaten
+   ✅ SQL: 75 master certificaten
+   ✅ Master Cert: 75 totaal, 43 strategisch
+
+🎯 STAP 7: Master Competenties laden...
+âœ… SQL: 126 master competenties
+   ✅ SQL: 126 master competenties
+   ✅ Master Comp: 126 totaal, 21 strategisch
+
+⚙️ STAP 8: Config Certificaten laden...
+âœ… SQL: 2359 certificaat config rijen
+   → Gefilterd: 2340 rijen (was 2359, -19)
+   ✅ Config Cert: 2340 rijen
+
+🎯 STAP 9: Config Competenties laden...
+âœ… get_medewerker_competentie_config (alle): 1110 rijen
+   → Gefilterd: 1102 rijen (was 1110, -8)
+   ✅ Config Comp: 1102 rijen
+   🧼 START Config Cleanup (SQL Wasstraat V2)...
+   ❌ Fout tijdens SQL Wasstraat: 'SQLServerTrainingManager' object has no attribute 'add_medewerker_certificaat_config'
+   🔄 Config Certificaten herladen na cleanup...
+âœ… SQL: 2359 certificaat config rijen
+
+📋 STAP 10: Todo Planner laden uit SQL...
+   🕵️ SQL: Ophalen taken voor specifiek CostCenter: 10O4W2
+   ✅ SQL: 48 taken opgehaald.
+   ✅ SQL: 48 taken geladen (exclusief voor 10O4W2)
+   ✅ TODO: 48 taken in geheugen.
+   🔧 Data Verrijking: Ontbrekende medewerker-info aanvullen...
+   ✅ Verrijking voltooid voor 48 taken.
+   🧹 STAFF FILTER: Teruggebracht naar 19 medewerkers van 10O4W2.
+
+📚 STAP 11: Training Catalog laden...
+âœ… SQL: 631 trainingen in catalogus
+   ✅ Training Catalog: 631 rijen
+
+🔍 STAP 12: Helper sets bouwen...
+   ✅ Zoeksets: 75 certs, 126 comps
+
+============================================================
+📝 STAP 13: TODO genereren voor costcenter 10O4W2...
+============================================================
+
+🔄 Sync certificaat taken...
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  106 rijen.
+
+🔄 Merge todo met config...
+   ℹ️ merge_todo_with_config: 48 taken bijgewerkt (Nodig status synced).
+
+🔄 Sync competentie taken...
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 66 rijen met Nodig=Aan.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 0
+   • Vernieuwingen nodig: 0
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 8
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 64
+   • TOTAAL NIEUWE TAKEN: 0
+============================================================
+
+✅ TODO sync voltooid
+
+🔄 Sync inschrijvingen uit Training_Req...
+
+============================================================
+🛡️ sync_inschrijvingen() - Filter: 10O4W2
+============================================================
+   🎯 Verwerken van 16 relevante inschrijvingen voor 10O4W2...
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (56 taken)...
+   ✅ SQL: Opslaan geslaagd voor 56 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+✅ Sync voltooid. 8 updates, 8 nieuwe taken voor afdeling 10O4W2.
+   ✅ 16 taken bijgewerkt met inschrijfdata
+
+🔄 Sync niet-geslaagde resultaten uit Cert_Results...
+   ℹ️ Geen niet-geslaagde taken nodig
+
+🔄 STAP 14: Status updates toepassen...
+
+============================================================
+🔄 close_finished_tasks() V15 - Filter: 10O4W2
+✅ close_finished_tasks: 0 taken bijgewerkt voor 10O4W2.
+   ✅ Geen wijzigingen nodig
+   ✅ Status updates voltooid
+
+🧹 STAP 14.5: Taken opschonen voor inactieve medewerkers...
+   🔍 SQL check op inactieve medewerkers...
+
+💾 STAP 15: Naam conversie en subset-save (met TaskID mapping)...
+✅ Alle namen zijn al in correct formaat
+   ✅ Alle namen zijn al in correct formaat
+   → 16 taken gewijzigd in deze sessie
+
+   💾 Opslaan subset: 16 gewijzigde taken naar SQL...
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (16 taken)...
+   ✅ SQL: Opslaan geslaagd voor 16 taken in 10O4W2.
+   ✅ Subset todo opgeslagen naar SQL Server
+
+🔍 STAP 16: Controleren op inschrijvingen zonder config...
+   ℹ️ INFO: 247 inschrijving(en) gevonden die nog niet in config staan.
+   ℹ️ De tool heeft deze zojuist in STAP 13 automatisch hersteld in de database.
+      • CV4106 → IS-005 - Zelfrijdende hoogwerker - Refresh
+      • BX6364 → EA-S-021 - Rolstelling en veiligheidsharnas
+      • LA1249 → IS-001 - Vorkheftruck - Refresh
+
+============================================================
+✅ load_all() VOLTOOID - Costcenter: 10O4W2
+============================================================
+   📊 Samenvatting:
+      • Staff: 19 medewerkers
+      • Certificates: 2287 rijen
+      • Todo: 56 taken
+============================================================
+
+
+   🔄 sync_todo_with_config() V10 [SAFE PORT]
+      Config: 2340 | Todo: 56
+      ℹ️ Geen nieuwe taken nodig.
+
+============================================================
+🔄 sync_cert_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2:  106 rijen.
+   ℹ️ merge_todo_with_config: 56 taken bijgewerkt (Nodig status synced).
+
+============================================================
+🔄 sync_competence_tasks() - AFDELING: 10O4W2
+============================================================
+   📊 Config voor 10O4W2: 66 rijen met Nodig=Aan.
+
+✅ sync_competence_tasks() RESULTAAT:
+   • Nieuwe vaardigheden: 0
+   • Vernieuwingen nodig: 0
+   • Overgeslagen (nog geldig): 58
+   • Overgeslagen (taak bestaat): 8
+   • Overgeslagen (niet in costcenter): 0
+   • 🔄 Namen genormaliseerd: 64
+   • TOTAAL NIEUWE TAKEN: 0
+============================================================
+
+============================================================
+🔄 close_finished_tasks() V15 - Filter: 10O4W2
+✅ close_finished_tasks: 0 taken bijgewerkt voor 10O4W2.
+   ✅ enrich_todo_with_staff_info: todo verrijkt (CostCenter ongewijzigd gelaten)
+
+========================================
+💾 save_todo() Aangeroepen vanuit UI
+
+============================================================
+👮 save_todo_planner() - CONTROLE VOOR AFDELING: 10O4W2
+   💾 SQL SAVE: Bezig met opslaan voor afdeling '10O4W2' (56 taken)...
+   ✅ SQL: Opslaan geslaagd voor 56 taken in 10O4W2.
+   💾 SQL:  Opslag geslaagd.
+   ⚠️ SQL: Ophalen ALLE taken (geen filter opgegeven)
+   ✅ SQL: 170 taken opgehaald.
