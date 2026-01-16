@@ -44,8 +44,61 @@ from dataclasses import dataclass
 from xaurum.theme import APP_STYLE, load_logo_icon
 from xaurum.config import *
 from xaurum.utils import *
-from xaurum.db.staff_manager import SQLServerStaffManager
-from xaurum.db.training_manager import SQLServerTrainingManager
+
+# =========================================================
+# SQL SERVER MANAGER PLACEHOLDER CLASSES
+# =========================================================
+# These classes are placeholders for SQL Server managers
+# The actual implementation is embedded in DataStore class
+
+class SQLServerStaffManager:
+    """Placeholder class for SQL Server Staff Manager"""
+    def __init__(self, server, database, table):
+        self.server = server
+        self.database = database
+        self.table = table
+        self.engine = None
+        
+    def is_available(self):
+        return self.engine is not None
+        
+    def get_all_staff(self):
+        return pd.DataFrame()
+        
+    def get_staff_by_costcenter(self, costcenter):
+        return pd.DataFrame()
+
+
+class SQLServerTrainingManager:
+    """Placeholder class for SQL Server Training Manager"""
+    def __init__(self, server, database):
+        self.server = server
+        self.database = database
+        self.engine = None
+        
+    def is_available(self):
+        return self.engine is not None
+        
+    def get_todo_planner(self, costcenter=None):
+        return pd.DataFrame()
+        
+    def save_todo_planner(self, rows):
+        return False, {}
+        
+    def get_master_certificaten(self):
+        return pd.DataFrame()
+        
+    def add_master_certificaten(self, rows):
+        return 0
+        
+    def get_master_competenties(self):
+        return pd.DataFrame()
+        
+    def add_master_competenties(self, rows):
+        return 0
+        
+    def add_medewerker_certificaat_config(self, rows):
+        return False
 
 # =========================================================
 # GLOBALE HELPERS

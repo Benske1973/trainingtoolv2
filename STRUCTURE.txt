@@ -1,0 +1,78 @@
+Repository Structure After Reorganization
+==========================================
+
+trainingtoolv2/
+│
+├── main.py                         # Application entry point
+├── smart_auth_bootstrap.py         # Authentication bootstrap
+├── README.md                       # Documentation
+├── REORGANIZATION_SUMMARY.md       # This reorganization summary
+│
+└── xaurum/                         # Main application package
+    ├── __init__.py
+    ├── config.py                   # Constants & paths (CONFIG_DIR, INPUT_FILES, etc.)
+    ├── theme.py                    # UI theme & styling
+    ├── utils.py                    # Utility functions
+    │
+    ├── assets/                     # Assets directory (logo, images)
+    │
+    ├── core/                       # Core business logic
+    │   ├── __init__.py
+    │   └── datastore.py            # Data management & SQL operations
+    │
+    └── ui/                         # User interface modules
+        ├── __init__.py
+        ├── main_window.py          # Main application window
+        ├── widgets.py              # Reusable UI widgets
+        ├── dialogs.py              # Dialog windows
+        │
+        └── tabs/                   # Tab modules
+            ├── __init__.py
+            ├── dashboard.py        # Dashboard tab
+            ├── employees.py        # Employee management tab
+            ├── todo.py             # TODO/Planner tab
+            ├── alerts.py           # Alerts tab
+            ├── future_trainings.py # Future trainings/discrepancy tracker
+            ├── config.py           # Configuration tab (ConfigTab class)
+            └── StaffSearchTab.py   # Staff search tab
+
+Import Examples
+===============
+
+# From main.py
+from xaurum.theme import APP_STYLE
+from xaurum.ui.main_window import MainWindow
+
+# From any module
+from xaurum.config import CONFIG_DIR, INPUT_FILES, SQL_CONNECTION_STRING
+from xaurum.utils import normalize_certname, format_medewerker_naam
+from xaurum.core.datastore import DataStore
+from xaurum.ui.widgets import StatCard, ToggleSwitch
+from xaurum.ui.dialogs import IngeschrevenWizard
+from xaurum.ui.tabs.dashboard import DashboardTab
+from xaurum.ui.tabs.config import ConfigTab
+
+Key Changes
+===========
+
+1. ✅ Split config.py into:
+   - xaurum/config.py (constants)
+   - xaurum/ui/tabs/config.py (ConfigTab class)
+
+2. ✅ Fixed circular imports:
+   - xaurum/config.py imports nothing from xaurum
+   - All other modules import from xaurum.config
+
+3. ✅ Fixed datastore.py:
+   - Removed non-existent db.staff_manager imports
+   - Created placeholder stub classes
+
+4. ✅ Added missing imports:
+   - QFileDialog in config tab
+
+5. ✅ Cleaned up:
+   - Removed alerts_prev.py
+   - Removed "config -hoofdscherm.py"
+   - Added .gitignore
+
+Result: All ImportError's resolved! ✅
