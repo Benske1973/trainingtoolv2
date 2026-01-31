@@ -27,6 +27,7 @@ from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QToolButton, QButtonGroup,
     QStackedWidget, QFrame, QDateEdit, QTextEdit, QInputDialog,
     QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QSizePolicy, QProgressDialog,
+    QFileDialog,
     )
 
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QPointF, QRectF, QDate, QUrl
@@ -38,21 +39,11 @@ from PyQt6.QtGui import (
 from dataclasses import dataclass
 
 # ===============================================================
-# PADEN / SETTINGS
-# ===============================================================
-
-from xaurum.theme import APP_STYLE, load_logo_icon
-from xaurum.config import *
-from xaurum.utils import *
-from xaurum.ui.widgets import *
-from xaurum.ui.dialogs import *
-from xaurum.core.datastore import DataStore
-
-
-
-# ===============================================================
 # CONFIG TAB - VOLLEDIG MET XAURUM RAPPORT
 # ===============================================================
+
+from xaurum.config import *
+from xaurum.core.datastore import DataStore
 
 class ConfigTab(QWidget):
     def __init__(self, data_store:  DataStore, parent_window=None):
